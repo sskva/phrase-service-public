@@ -1,1 +1,3 @@
 https://start.spring.io/
+Телеграм - https://t.me/+5njLwbZPIMo5NTli
+Гитхаб - https://github.com/sskva/phrase-service-public/tree/develop

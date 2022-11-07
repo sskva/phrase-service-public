@@ -1,7 +1,8 @@
-package ru.mycompany.phrase.domen.response;
+package ru.mycompany.phrase.domen.response.error;
 
 import lombok.Builder;
 import lombok.Data;
+import ru.mycompany.phrase.domen.response.Response;
 
 
 @Data
