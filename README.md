@@ -45,7 +45,7 @@ password >= 8 символов, <= 100 символов, разрешенные 
 {
   "error": {
     "code": "REQUEST_VALIDATION_ERROR",
-    "text": "Некорректный nickname. Некорректный password"
+    "message": "Некорректный nickname. Некорректный password"
   }
 }
 ```
@@ -53,7 +53,7 @@ password >= 8 символов, <= 100 символов, разрешенные 
 {
   "error": {
     "code": "NICKNAME_BUSY",
-    "text": "Этот ник уже занят, придумайте другой"
+    "message": "Этот ник уже занят, придумайте другой"
   }
 }
 ```

@@ -19,7 +19,7 @@ public class PhraseServiceImpl implements PhraseService {
     @Override
     public ResponseEntity<Response> test() {
 
-        return new ResponseEntity<>(SuccessResponse.builder().data("SuccessResponse").build(), HttpStatus.OK);
-//        return new ResponseEntity<>(ErrorResponse.builder().error(Error.builder().code("VALIDATION_ERROR").message("Ошибка валидации").build()).build(), HttpStatus.BAD_REQUEST);
+//        return new ResponseEntity<>(SuccessResponse.builder().data("SuccessResponse").build(), HttpStatus.OK);
+        return new ResponseEntity<>(ErrorResponse.builder().error(Error.builder().code("VALIDATION_ERROR").message("Ошибка валидации").build()).build(), HttpStatus.BAD_REQUEST);
     }
 }
