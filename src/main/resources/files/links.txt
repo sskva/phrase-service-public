@@ -2,3 +2,4 @@ https://start.spring.io/
 Телеграм - https://t.me/+5njLwbZPIMo5NTli
 Гитхаб - https://github.com/sskva/phrase-service-public/tree/develop
 Про ResponseEntityExceptionHandler - https://habr.com/ru/post/342214/
+Установка MySQL - https://metanit.com/sql/mysql/1.1.php
