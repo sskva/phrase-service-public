@@ -5,20 +5,25 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.mycompany.phrase.domen.constant.Code;
+import ru.mycompany.phrase.domen.api.RegistrationReq;
 import ru.mycompany.phrase.domen.response.Response;
-import ru.mycompany.phrase.domen.response.exception.CommonException;
+import ru.mycompany.phrase.domen.response.SuccessResponse;
 import ru.mycompany.phrase.service.PhraseService;
+import ru.mycompany.phrase.util.ValidationUtils;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class PhraseServiceImpl implements PhraseService {
 
-    @Override
-    public ResponseEntity<Response> test() {
+    private final ValidationUtils validationUtils;
 
-//        int x = 1/0;
-        throw CommonException.builder().code(Code.TEST).message("Test").httpStatus(HttpStatus.BAD_REQUEST).build();
+
+
+    @Override
+    public ResponseEntity<Response> registration(RegistrationReq req) {
+
+        validationUtils.validationRequest(req);
+        return new ResponseEntity<Response>((SuccessResponse.builder().data("Ол райт, Христофор Бонифатьевич!").build()), HttpStatus.OK);
     }
 }

@@ -4,10 +4,8 @@ package ru.mycompany.phrase.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.mycompany.phrase.domen.api.RegistrationReq;
 import ru.mycompany.phrase.domen.response.Response;
 import ru.mycompany.phrase.service.PhraseService;
 
@@ -29,12 +27,12 @@ public class Controller {
     }
 
 
-    @PostMapping("/test")
-    public ResponseEntity<Response> test() {
+    @PostMapping("/registration")
+    public ResponseEntity<Response> registration(@RequestBody final RegistrationReq req) {
 
-        log.info("START endpoint test");
-        ResponseEntity<Response> response = phraseService.test();
-        log.info("END endpoint test, response: {}", response);
-        return response;
+        log.info("START endpoint registration, request: {}", req);
+        ResponseEntity<Response> resp = phraseService.registration(req);
+        log.info("END endpoint registration, response: {}", resp);
+        return resp;
     }
 }
