@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationReq {
+public class LoginReq {
 
     @NotBlank(message = "nickname должен быть заполнен")
     @Pattern(regexp = RegExp.nickname, message = "Некорректный nickname")

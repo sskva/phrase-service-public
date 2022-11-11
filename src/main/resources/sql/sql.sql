@@ -1,4 +1,4 @@
-CREATE TABLE phrase.user
+CREATE TABLE phrase_public.user
 (
     id           BIGINT AUTO_INCREMENT,
     nickname     VARCHAR(15)  NOT NULL,
@@ -8,3 +8,7 @@ CREATE TABLE phrase.user
     PRIMARY KEY (`id`),
     UNIQUE KEY `nickname_password` (`nickname`, `password`)
 ) COLLATE utf8_bin;
+
+ALTER TABLE user DROP INDEX `nickname_password`;
+ALTER TABLE user ADD UNIQUE (nickname);
+ALTER TABLE user ADD UNIQUE (access_token);

@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 import ru.mycompany.phrase.dao.Dao;
+import ru.mycompany.phrase.domen.api.LoginReq;
+import ru.mycompany.phrase.domen.api.LoginResp;
 import ru.mycompany.phrase.domen.api.RegistrationReq;
 import ru.mycompany.phrase.domen.api.RegistrationResp;
 import ru.mycompany.phrase.domen.constant.Code;
@@ -27,6 +29,15 @@ public class PhraseServiceImpl implements PhraseService {
     private final ValidationUtils validationUtils;
     private final Dao dao;
 
+    @Override
+    public ResponseEntity<Response> login(LoginReq req) {
+
+        validationUtils.validationRequest(req);
+
+        String encryptPassword = DigestUtils.md5DigestAsHex(req.getPassword().getBytes());
+        String accessToken =  dao.getAccessToken(User.builder().nickname(req.getNickname()).encryptPassword(encryptPassword).build());
+        return new ResponseEntity<>(SuccessResponse.builder().data(LoginResp.builder().accessToken(accessToken).build()).build(), HttpStatus.OK);
+    }
 
     @Override
     public ResponseEntity<Response> registration(RegistrationReq req) {

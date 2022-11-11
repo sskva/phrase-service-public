@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.mycompany.phrase.domen.api.LoginReq;
 import ru.mycompany.phrase.domen.api.RegistrationReq;
 import ru.mycompany.phrase.domen.response.Response;
 import ru.mycompany.phrase.service.PhraseService;
@@ -19,12 +20,25 @@ public class Controller {
     private final PhraseService phraseService;
 
 
+
     @GetMapping("/hello")
     public String hello() {
         String hello = "Hello, phrase-service! Version: 1.0.0";
         log.info(hello);
         return hello;
     }
+
+
+
+    @PostMapping("/login")
+    public ResponseEntity<Response> login(@RequestBody final LoginReq req) {
+
+        log.info("START endpoint login, request: {}", req);
+        ResponseEntity<Response> resp = phraseService.login(req);
+        log.info("END endpoint login, response: {}", resp);
+        return resp;
+    }
+
 
 
     @PostMapping("/registration")
