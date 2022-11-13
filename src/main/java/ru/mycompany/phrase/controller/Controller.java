@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.mycompany.phrase.domen.api.LoginReq;
+import ru.mycompany.phrase.domen.api.PublicPhraseReq;
 import ru.mycompany.phrase.domen.api.RegistrationReq;
 import ru.mycompany.phrase.domen.response.Response;
 import ru.mycompany.phrase.service.PhraseService;
@@ -26,6 +27,17 @@ public class Controller {
         String hello = "Hello, phrase-service! Version: 1.0.0";
         log.info(hello);
         return hello;
+    }
+
+
+
+    @PostMapping("/publicPhrase")
+    public ResponseEntity<Response> publicPhrase(@RequestHeader String accessToken, @RequestBody final PublicPhraseReq req) {
+
+        log.info("START endpoint publicPhrase, accessToken: {}, request: {}", accessToken, req);
+        ResponseEntity<Response> resp = phraseService.publicPhrase(req, accessToken);
+        log.info("END endpoint publicPhrase, response: {}", resp);
+        return resp;
     }
 
 

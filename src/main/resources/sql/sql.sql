@@ -12,3 +12,37 @@ CREATE TABLE phrase_public.user
 ALTER TABLE user DROP INDEX `nickname_password`;
 ALTER TABLE user ADD UNIQUE (nickname);
 ALTER TABLE user ADD UNIQUE (access_token);
+
+
+CREATE TABLE phrase.tag
+(
+    id          BIGINT AUTO_INCREMENT,
+    text        VARCHAR(25) NOT NULL,
+    time_insert TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE (text)
+) COLLATE utf8_bin;
+
+
+CREATE TABLE phrase.phrase
+(
+    id          BIGINT AUTO_INCREMENT,
+    user_id     BIGINT NOT NULL,
+    text        VARCHAR(140) NOT NULL,
+    time_insert TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES user (id)
+) COLLATE utf8_bin;
+
+
+CREATE TABLE phrase.phrase_tag
+(
+    id          BIGINT AUTO_INCREMENT,
+    phrase_id   BIGINT NOT NULL,
+    tag_id      BIGINT NOT NULL,
+    time_insert TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (phrase_id) REFERENCES phrase (id),
+    FOREIGN KEY (tag_id) REFERENCES tag (id),
+    UNIQUE `phrase_id_tag_id` (`phrase_id`, `tag_id`)
+) COLLATE utf8_bin;

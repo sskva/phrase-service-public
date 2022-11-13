@@ -6,6 +6,14 @@ import ru.mycompany.phrase.domen.dto.User;
 @Service
 public interface Dao {
 
+    void addPhraseTag(long phraseId, String tag);
+
+    void addTag(String tag);
+
+    long addPhrase(long userId, String text);
+
+    long getIdByToken(String token);
+
     String getAccessToken(User user);
 
     boolean isExistsNickname(String nickname);
