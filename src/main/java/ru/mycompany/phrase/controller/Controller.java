@@ -32,7 +32,7 @@ public class Controller {
 
 
     @PostMapping("/publicPhrase")
-    public ResponseEntity<Response> publicPhrase(@RequestHeader String accessToken, @RequestBody final PublicPhraseReq req) {
+    public ResponseEntity<Response> publicPhrase(@RequestHeader final String accessToken, @RequestBody final PublicPhraseReq req) {
 
         log.info("START endpoint publicPhrase, accessToken: {}, request: {}", accessToken, req);
         ResponseEntity<Response> resp = phraseService.publicPhrase(req, accessToken);

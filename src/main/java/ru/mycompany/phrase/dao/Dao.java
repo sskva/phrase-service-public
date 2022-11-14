@@ -12,7 +12,7 @@ public interface Dao {
 
     long addPhrase(long userId, String text);
 
-    long getIdByToken(String token);
+    long getIdByToken(String accessToken);
 
     String getAccessToken(User user);
 

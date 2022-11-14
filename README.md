@@ -27,8 +27,10 @@ id, phrase_id, tag_id, time_insert
 **входящие данные**
 ```json
 {
-  "nickname": "barabashka",
-  "password": "barabashka1980"
+  "authorization": {
+    "nickname": "barabashka89",
+    "password": "barabashka1980"
+  }
 }
 ```
 **валидация**<br/>
@@ -70,8 +72,10 @@ password >= 8 символов, <= 100 символов, разрешенные 
 **входящие данные**
 ```json
 {
-  "nickname": "barabashka",
-  "password": "barabashka1980"
+  "authorization": {
+    "nickname": "barabashka89",
+    "password": "barabashka1980"
+  }
 }
 ```
 **валидация**<br/>
@@ -122,7 +126,7 @@ password >= 8 символов, <= 100 символов, разрешенные 
 }
 ```
 **валидация**<br/>
-phrase >= 1 символов, <= 140, разрешенные символы a-zA-Z0-9а-яА-Я.,:; _?!+=/'\"*(){}[]-<br/>
+text >= 1 символов, <= 140, разрешенные символы a-zA-Z0-9а-яА-Я.,:; _?!+=/'\"*(){}[]-<br/>
 tags от 0 до 5, значение от >= 3 символов, <= 25, разрешенные символы a-zA-Z0-9а-яА-Я.,:; _?!+=/'\"*(){}[]-
 
 **логика метода**<br/>

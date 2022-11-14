@@ -14,17 +14,7 @@ ALTER TABLE user ADD UNIQUE (nickname);
 ALTER TABLE user ADD UNIQUE (access_token);
 
 
-CREATE TABLE phrase.tag
-(
-    id          BIGINT AUTO_INCREMENT,
-    text        VARCHAR(25) NOT NULL,
-    time_insert TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (`id`),
-    UNIQUE (text)
-) COLLATE utf8_bin;
-
-
-CREATE TABLE phrase.phrase
+CREATE TABLE phrase_public.phrase
 (
     id          BIGINT AUTO_INCREMENT,
     user_id     BIGINT NOT NULL,
@@ -35,7 +25,18 @@ CREATE TABLE phrase.phrase
 ) COLLATE utf8_bin;
 
 
-CREATE TABLE phrase.phrase_tag
+CREATE TABLE phrase_public.tag
+(
+    id          BIGINT AUTO_INCREMENT,
+    text        VARCHAR(25) NOT NULL,
+    time_insert TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE (text)
+) COLLATE utf8_bin;
+INSERT INTO tag(text) VALUE ('море');
+
+
+CREATE TABLE phrase_public.phrase_tag
 (
     id          BIGINT AUTO_INCREMENT,
     phrase_id   BIGINT NOT NULL,

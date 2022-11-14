@@ -15,4 +15,6 @@ public class RegistrationReq {
 
     @NotNull(message = "authorization должен быть заполнен")
     private Authorization authorization;
+
+
 }

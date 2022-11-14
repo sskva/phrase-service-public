@@ -17,8 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class PublicPhraseReq {
 
-    @NotBlank(message = "phrase должен быть заполнен")
-    @Pattern(regexp = RegExp.phrase, message = "Некорректный phrase")
+    @NotBlank(message = "text должен быть заполнен")
+    @Pattern(regexp = RegExp.phrase, message = "Некорректный text")
     private String text;
 
     @Size(max = 5, message = "Количество тегов не должно превышать 5")
