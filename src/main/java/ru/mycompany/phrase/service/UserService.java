@@ -1,12 +1,12 @@
 package ru.mycompany.phrase.service;
 
 import org.springframework.http.ResponseEntity;
-import ru.mycompany.phrase.domain.api.LoginReq;
-import ru.mycompany.phrase.domain.api.PublicPhraseReq;
-import ru.mycompany.phrase.domain.api.RegistrationReq;
+import ru.mycompany.phrase.domain.api.user.login.LoginReq;
+import ru.mycompany.phrase.domain.api.user.publicPhrase.PublicPhraseReq;
+import ru.mycompany.phrase.domain.api.user.registration.RegistrationReq;
 import ru.mycompany.phrase.domain.response.Response;
 
-public interface PhraseService {
+public interface UserService {
 
     ResponseEntity<Response> getMyPhrases(String accessToken);
 

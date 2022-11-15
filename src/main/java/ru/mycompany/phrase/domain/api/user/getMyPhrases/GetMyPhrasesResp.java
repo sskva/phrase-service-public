@@ -1,15 +1,17 @@
-package ru.mycompany.phrase.domain.api;
+package ru.mycompany.phrase.domain.api.user.getMyPhrases;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationResp {
+public class GetMyPhrasesResp {
 
-    private String accessToken;
+    private List<PhraseResp> phrases;
 }

@@ -7,7 +7,7 @@ import ru.mycompany.phrase.domain.entity.Phrase;
 import java.util.List;
 
 @Service
-public interface Dao {
+public interface UserDao {
 
     List<String> getTagsByPhraseId(long phraseId);
 

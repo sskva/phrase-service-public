@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api;
+package ru.mycompany.phrase.domain.api.user.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
