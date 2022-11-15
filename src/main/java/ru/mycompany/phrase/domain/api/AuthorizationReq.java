@@ -1,10 +1,10 @@
-package ru.mycompany.phrase.domen.api;
+package ru.mycompany.phrase.domain.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.mycompany.phrase.domen.constant.RegExp;
+import ru.mycompany.phrase.domain.constant.RegExp;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -13,7 +13,7 @@ import javax.validation.constraints.Pattern;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Authorization {
+public class AuthorizationReq {
 
     @NotBlank(message = "nickname должен быть заполнен")
     @Pattern(regexp = RegExp.nickname, message = "Некорректный nickname")

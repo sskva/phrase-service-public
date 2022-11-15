@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domen.constant;
+package ru.mycompany.phrase.domain.constant;
 
 public enum Code {
 
@@ -6,5 +6,6 @@ public enum Code {
     NICKNAME_BUSY,
     INTERNAL_SERVER_ERROR,
     USER_NOT_FOUND,
-    AUTHORIZATION_ERROR
+    AUTHORIZATION_ERROR,
+    MISSING_REQUEST_HEADER
 }

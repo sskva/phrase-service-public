@@ -5,10 +5,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.mycompany.phrase.domen.api.LoginReq;
-import ru.mycompany.phrase.domen.api.PublicPhraseReq;
-import ru.mycompany.phrase.domen.api.RegistrationReq;
-import ru.mycompany.phrase.domen.response.Response;
+import ru.mycompany.phrase.domain.api.LoginReq;
+import ru.mycompany.phrase.domain.api.PublicPhraseReq;
+import ru.mycompany.phrase.domain.api.RegistrationReq;
+import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.service.PhraseService;
 
 
@@ -27,6 +27,17 @@ public class Controller {
         String hello = "Hello, phrase-service! Version: 1.0.0";
         log.info(hello);
         return hello;
+    }
+
+
+
+    @GetMapping("/getMyPhrases")
+    public ResponseEntity<Response> getMyPhrases(@RequestHeader final String accessToken) {
+
+        log.info("START endpoint getMyPhrases, accessToken: {}", accessToken);
+        ResponseEntity<Response> resp = phraseService.getMyPhrases(accessToken);
+        log.info("END endpoint getMyPhrases, response: {}", resp);
+        return resp;
     }
 
 

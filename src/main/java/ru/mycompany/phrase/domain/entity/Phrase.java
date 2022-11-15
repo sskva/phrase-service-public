@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domen.api;
+package ru.mycompany.phrase.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegistrationResp {
+public class Phrase {
 
-    private String accessToken;
+    private long id;
+    private long userId;
+    private String text;
+    private String timeInsert;
 }

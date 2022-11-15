@@ -1,10 +1,17 @@
 package ru.mycompany.phrase.dao;
 
 import org.springframework.stereotype.Service;
-import ru.mycompany.phrase.domen.dto.User;
+import ru.mycompany.phrase.domain.dto.User;
+import ru.mycompany.phrase.domain.entity.Phrase;
+
+import java.util.List;
 
 @Service
 public interface Dao {
+
+    List<String> getTagsByPhraseId(long phraseId);
+
+    List<Phrase> getPhrasesByUserId(long userId);
 
     void addPhraseTag(long phraseId, String tag);
 
@@ -12,11 +19,13 @@ public interface Dao {
 
     long addPhrase(long userId, String text);
 
-    long getIdByToken(String accessToken);
+    long getUserIdByToken(String accessToken);
 
     String getAccessToken(User user);
 
     boolean isExistsNickname(String nickname);
 
     void insertNewUser(User user);
+
+
 }

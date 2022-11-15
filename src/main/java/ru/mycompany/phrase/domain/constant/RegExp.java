@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domen.constant;
+package ru.mycompany.phrase.domain.constant;
 
 public class RegExp {
 

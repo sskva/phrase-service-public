@@ -4,9 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-import ru.mycompany.phrase.domen.constant.Code;
-import ru.mycompany.phrase.domen.response.exception.CommonException;
+import ru.mycompany.phrase.domain.constant.Code;
+import ru.mycompany.phrase.domain.response.exception.CommonException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -30,7 +29,7 @@ public class ValidationUtils {
                         .map(ConstraintViolation::getMessage)
                         .reduce((s1, s2) -> s1 + ". " + s2).orElse("");
                 log.error("Переданный в запросе json не валиден, ошибки валидации: {}", resultValidations);
-                throw CommonException.builder().code(Code.REQUEST_VALIDATION_ERROR).message(resultValidations).httpStatus(HttpStatus.BAD_REQUEST).build();
+                throw CommonException.builder().code(Code.REQUEST_VALIDATION_ERROR).techMessage(resultValidations).httpStatus(HttpStatus.BAD_REQUEST).build();
             }
         }
     }

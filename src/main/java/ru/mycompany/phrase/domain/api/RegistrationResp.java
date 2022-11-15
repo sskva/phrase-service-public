@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domen.api;
+package ru.mycompany.phrase.domain.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResp {
+public class RegistrationResp {
 
     private String accessToken;
 }

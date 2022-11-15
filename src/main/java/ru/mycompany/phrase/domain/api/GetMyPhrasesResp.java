@@ -1,17 +1,17 @@
-package ru.mycompany.phrase.domen.dto;
+package ru.mycompany.phrase.domain.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class GetMyPhrasesResp {
 
-    private String nickname;
-    private String encryptPassword;
-    private String accessToken;
+    private List<PhraseResp> phrases;
 }
