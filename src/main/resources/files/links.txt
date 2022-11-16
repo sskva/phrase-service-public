@@ -11,3 +11,5 @@ https://start.spring.io/
 JDBC vs JPA - https://habr.com/ru/company/otus/blog/686082/
 
 Дока MySQL - https://dev.mysql.com/doc/refman/8.0/en/
+
+Статья про Spring Framework - https://habr.com/ru/post/490586/
