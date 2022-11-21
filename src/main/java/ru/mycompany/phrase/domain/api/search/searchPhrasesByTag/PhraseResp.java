@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.user.getMyPhrases;
+package ru.mycompany.phrase.domain.api.search.searchPhrasesByTag;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,6 +15,8 @@ import java.util.List;
 public class PhraseResp {
 
     private long phraseId;
+    private long userId;
+    private String nickname;
     private String text;
     private String timeInsert;
     private List<TagResp> tags;

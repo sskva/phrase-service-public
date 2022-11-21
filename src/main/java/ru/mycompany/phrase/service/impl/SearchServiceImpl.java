@@ -5,11 +5,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.mycompany.phrase.dao.CommonDao;
 import ru.mycompany.phrase.dao.SearchDao;
-import ru.mycompany.phrase.dao.UserDao;
+import ru.mycompany.phrase.domain.api.common.TagResp;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.PhraseResp;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagResp;
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsReq;
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsResp;
-import ru.mycompany.phrase.domain.api.search.searchTags.TagResp;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.service.SearchService;
@@ -24,7 +27,22 @@ public class SearchServiceImpl implements SearchService {
 
     private final SearchDao searchDao;
     private final ValidationUtils validationUtils;
-    private final UserDao userDao;
+    private final CommonDao commonDao;
+
+
+
+    @Override
+    public ResponseEntity<Response> searchPhrasesByTag(SearchPhrasesByTagReq req, String accessToken) {
+
+        validationUtils.validationRequest(req);
+        commonDao.getUserIdByToken(accessToken);
+        List<PhraseResp> phrases = searchDao.searchPhrasesByTag(req);
+        for (PhraseResp phraseResp : phrases) {
+            List<TagResp> tags = commonDao.getTagsByPhraseId(phraseResp.getPhraseId());
+            phraseResp.setTags(tags);
+        }
+        return new ResponseEntity<>(SuccessResponse.builder().data(SearchPhrasesByTagResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
+    }
 
 
 
@@ -32,7 +50,7 @@ public class SearchServiceImpl implements SearchService {
     public ResponseEntity<Response> searchTags(SearchTagsReq req, String accessToken) {
 
         validationUtils.validationRequest(req);
-        userDao.getUserIdByToken(accessToken);
+        commonDao.getUserIdByToken(accessToken);
 
         List<TagResp> tagRespList = searchDao.searchTags(req.getPartTag());
         return new ResponseEntity<>(SuccessResponse.builder().data(SearchTagsResp.builder().tags(tagRespList).build()).build(), HttpStatus.OK);

@@ -1,16 +1,17 @@
-package ru.mycompany.phrase.domain.api.search.searchTags;
+package ru.mycompany.phrase.domain.api.search.searchPhrasesByTag;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagResp {
+public class SearchPhrasesByTagResp {
 
-    private long id;
-    private String text;
+    private List<PhraseResp> phrases;
 }

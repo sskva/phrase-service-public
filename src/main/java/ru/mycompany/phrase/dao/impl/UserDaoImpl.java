@@ -40,14 +40,6 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
 
     @Override
-    public List<String> getTagsByPhraseId(long phraseId) {
-
-        return jdbcTemplate.queryForList("SELECT text FROM tag WHERE id IN (SELECT tag_id FROM phrase_tag WHERE phrase_id = ?);", String.class, phraseId);
-    }
-
-
-
-    @Override
     public List<Phrase> getPhrasesByUserId(long userId) {
         return jdbcTemplate.query("SELECT * FROM phrase WHERE user_id = ? ORDER BY time_insert DESC;", new PhraseRowMapper(), userId);
     }
@@ -75,19 +67,6 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
         jdbcTemplate.update("INSERT INTO phrase(user_id,text) VALUES (?,?);", userId, text);
         return jdbcTemplate.queryForObject("SELECT id FROM phrase WHERE id = LAST_INSERT_ID();", Long.class);
-    }
-
-
-
-    @Override
-    public long getUserIdByToken(String accessToken) {
-
-        try {
-            return jdbcTemplate.queryForObject("SELECT id FROM user WHERE access_token = ?;", Long.class, accessToken);
-        } catch (EmptyResultDataAccessException ex) {
-            log.error(ex.toString());
-            throw CommonException.builder().code(Code.AUTHORIZATION_ERROR).userMessage("Ошибка авторизации").httpStatus(HttpStatus.BAD_REQUEST).build();
-        }
     }
 
 

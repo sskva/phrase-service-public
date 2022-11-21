@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.mycompany.phrase.dao.CommonDao;
 import ru.mycompany.phrase.dao.UserDao;
 import ru.mycompany.phrase.domain.api.user.getMyPhrases.GetMyPhrasesResp;
 import ru.mycompany.phrase.domain.api.user.getMyPhrases.PhraseResp;
+import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.user.login.LoginReq;
 import ru.mycompany.phrase.domain.api.user.login.LoginResp;
 import ru.mycompany.phrase.domain.api.user.publicPhrase.PublicPhraseReq;
@@ -35,20 +37,21 @@ public class UserServiceImpl implements UserService {
     private final ValidationUtils validationUtils;
     private final EncryptUtils encryptUtils;
     private final UserDao userDao;
+    private final CommonDao commonDao;
 
 
 
     @Override
     public ResponseEntity<Response> getMyPhrases(String accessToken) {
 
-        long userId = userDao.getUserIdByToken(accessToken);
+        long userId = commonDao.getUserIdByToken(accessToken);
         List<Phrase> phraseList = userDao.getPhrasesByUserId(userId);
 
         List<PhraseResp> phraseRespList = new ArrayList<>();
         for (Phrase phrase : phraseList) {
-            List<String> tags = userDao.getTagsByPhraseId(phrase.getId());
+            List<TagResp> tags = commonDao.getTagsByPhraseId(phrase.getId());
             phraseRespList.add(PhraseResp.builder()
-                    .id(phrase.getId())
+                    .phraseId(phrase.getId())
                     .text(phrase.getText())
                     .timeInsert(phrase.getTimeInsert())
                     .tags(tags).build());
@@ -63,7 +66,7 @@ public class UserServiceImpl implements UserService {
 
         validationUtils.validationRequest(req);
 
-        long userId = userDao.getUserIdByToken(accessToken);
+        long userId = commonDao.getUserIdByToken(accessToken);
         long phraseId = userDao.addPhrase(userId, req.getText());
         log.info("userId: {}, phraseId: {}", userId, phraseId);
 

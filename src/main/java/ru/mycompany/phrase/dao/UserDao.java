@@ -9,8 +9,6 @@ import java.util.List;
 @Service
 public interface UserDao {
 
-    List<String> getTagsByPhraseId(long phraseId);
-
     List<Phrase> getPhrasesByUserId(long userId);
 
     void addPhraseTag(long phraseId, String tag);
@@ -19,13 +17,9 @@ public interface UserDao {
 
     long addPhrase(long userId, String text);
 
-    long getUserIdByToken(String accessToken);
-
     String getAccessToken(User user);
 
     boolean isExistsNickname(String nickname);
 
     void insertNewUser(User user);
-
-
 }

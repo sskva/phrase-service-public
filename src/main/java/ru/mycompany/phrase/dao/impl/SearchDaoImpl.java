@@ -7,8 +7,11 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mycompany.phrase.dao.SearchDao;
-import ru.mycompany.phrase.domain.api.search.searchTags.TagResp;
-import ru.mycompany.phrase.domain.api.search.searchTags.TagRespRowMapper;
+import ru.mycompany.phrase.domain.api.common.TagResp;
+import ru.mycompany.phrase.domain.api.common.TagRespRowMapper;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.PhraseResp;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.PhraseRespRowMapper;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -35,6 +38,18 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
 
 
     @Override
+    public List<PhraseResp> searchPhrasesByTag(SearchPhrasesByTagReq req) {
+
+        return jdbcTemplate.query("SELECT phrase.id AS phrase_id, u.id AS user_id, u.nickname, phrase.text, phrase.time_insert " +
+                "FROM phrase " +
+                "         JOIN user u on phrase.user_id = u.id " +
+                "WHERE phrase.id IN (SELECT phrase_id FROM phrase_tag WHERE tag_id = ?) " +
+                "ORDER BY " + req.getSort().getValue() + ";", new PhraseRespRowMapper(), req.getTagId());
+    }
+
+
+
+    @Override
     public List<TagResp> searchTags(String partTag) {
 
         return jdbcTemplate.query("SELECT id, text " +
@@ -54,7 +69,7 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
                         "         WHERE text LIKE CONCAT('%', LOWER(?), '%') " +
                         "         GROUP BY tag.id " +
                         "         ORDER BY count(tag.id) DESC) t2;"
-                ,  new TagRespRowMapper(), partTag, partTag);
+                , new TagRespRowMapper(), partTag, partTag);
     }
 }
 

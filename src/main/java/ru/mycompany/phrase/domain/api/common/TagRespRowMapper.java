@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.search.searchTags;
+package ru.mycompany.phrase.domain.api.common;
 
 
 import org.springframework.jdbc.core.RowMapper;
@@ -12,9 +12,8 @@ public class TagRespRowMapper implements RowMapper<TagResp> {
     public TagResp mapRow(ResultSet row, int rowNum) throws SQLException {
 
         return TagResp.builder()
-                .id(row.getLong("id"))
+                .tagId(row.getLong("id"))
                 .text(row.getString("text"))
                 .build();
     }
-
 }
