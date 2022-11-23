@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.search.searchPhrasesByTag;
+package ru.mycompany.phrase.domain.api.search.common;
 
 import org.springframework.jdbc.core.RowMapper;
 

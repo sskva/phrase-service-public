@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.search.searchPhrasesByTag;
+package ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchPhrasesByTagResp {
+public class SearchPhrasesByPartWordResp {
 
     private List<PhraseResp> phrases;
 }

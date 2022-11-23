@@ -2,9 +2,11 @@ package ru.mycompany.phrase.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.mycompany.phrase.config.MapperConfig;
 import ru.mycompany.phrase.dao.CommonDao;
 import ru.mycompany.phrase.dao.UserDao;
 import ru.mycompany.phrase.domain.api.user.getMyPhrases.GetMyPhrasesResp;
@@ -38,11 +40,14 @@ public class UserServiceImpl implements UserService {
     private final EncryptUtils encryptUtils;
     private final UserDao userDao;
     private final CommonDao commonDao;
+//    private final MapperConfig mapper;
 
 
 
     @Override
     public ResponseEntity<Response> getMyPhrases(String accessToken) {
+
+
 
         long userId = commonDao.getUserIdByToken(accessToken);
         List<Phrase> phraseList = userDao.getPhrasesByUserId(userId);
@@ -50,11 +55,9 @@ public class UserServiceImpl implements UserService {
         List<PhraseResp> phraseRespList = new ArrayList<>();
         for (Phrase phrase : phraseList) {
             List<TagResp> tags = commonDao.getTagsByPhraseId(phrase.getId());
-            phraseRespList.add(PhraseResp.builder()
-                    .phraseId(phrase.getId())
-                    .text(phrase.getText())
-                    .timeInsert(phrase.getTimeInsert())
-                    .tags(tags).build());
+            PhraseResp phraseResp = new ModelMapper().map(phrase, PhraseResp.class);
+            phraseResp.setTags(tags);
+            phraseRespList.add(phraseResp);
         }
         return new ResponseEntity<>(SuccessResponse.builder().data(GetMyPhrasesResp.builder().phrases(phraseRespList).build()).build(), HttpStatus.OK);
     }

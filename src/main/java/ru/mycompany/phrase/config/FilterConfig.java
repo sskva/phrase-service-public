@@ -2,7 +2,7 @@ package ru.mycompany.phrase.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Configuration;;
 import ru.mycompany.phrase.filter.AuthorizationFilter;
 
 @Configuration

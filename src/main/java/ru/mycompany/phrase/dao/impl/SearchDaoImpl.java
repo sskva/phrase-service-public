@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.mycompany.phrase.dao.SearchDao;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.common.TagRespRowMapper;
-import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.PhraseResp;
-import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.PhraseRespRowMapper;
+import ru.mycompany.phrase.domain.api.search.common.PhraseResp;
+import ru.mycompany.phrase.domain.api.search.common.PhraseRespRowMapper;
+import ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord.SearchPhrasesByPartWordReq;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +34,18 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
     @PostConstruct
     private void initialize() {
         setDataSource(dataSource);
+    }
+
+
+
+    @Override
+    public List<PhraseResp> searchPhrasesByPartWord(SearchPhrasesByPartWordReq req) {
+
+        return jdbcTemplate.query("SELECT phrase.id AS phrase_id, u.id AS user_id, u.nickname, phrase.text, phrase.time_insert " +
+                "FROM phrase " +
+                "         JOIN user u on phrase.user_id = u.id " +
+                "WHERE phrase.text LIKE CONCAT('%',?,'%') " +
+                "ORDER BY " + req.getSort().getValue() + ";", new PhraseRespRowMapper(), req.getPartWord());
     }
 
 
