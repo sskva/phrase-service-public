@@ -3,11 +3,14 @@ package ru.mycompany.phrase.dao;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.search.common.PhraseResp;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord.SearchPhrasesByPartWordReq;
+import ru.mycompany.phrase.domain.api.common.UserResp;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
 
 import java.util.List;
 
 public interface SearchDao {
+
+    List<UserResp> searchUsersByPartNickname(String partNickname);
 
     List<PhraseResp> searchPhrasesByPartWord(SearchPhrasesByPartWordReq req);
 

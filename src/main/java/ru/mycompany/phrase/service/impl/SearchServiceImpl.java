@@ -14,6 +14,7 @@ import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByT
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagResp;
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsReq;
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsResp;
+import ru.mycompany.phrase.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.service.SearchService;
@@ -29,6 +30,17 @@ public class SearchServiceImpl implements SearchService {
     private final SearchDao searchDao;
     private final ValidationUtils validationUtils;
     private final CommonDao commonDao;
+
+
+
+    @Override
+    public ResponseEntity<Response> searchUsersByPartNickname(SearchUsersByPartNicknameReq req, String accessToken) {
+
+        validationUtils.validationRequest(req);
+        commonDao.getUserIdByToken(accessToken);
+
+        return new ResponseEntity<>(SuccessResponse.builder().data(searchDao.searchUsersByPartNickname(req.getPartNickname())).build(), HttpStatus.OK);
+    }
 
 
 

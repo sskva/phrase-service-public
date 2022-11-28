@@ -12,6 +12,8 @@ import ru.mycompany.phrase.domain.api.common.TagRespRowMapper;
 import ru.mycompany.phrase.domain.api.search.common.PhraseResp;
 import ru.mycompany.phrase.domain.api.search.common.PhraseRespRowMapper;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord.SearchPhrasesByPartWordReq;
+import ru.mycompany.phrase.domain.api.common.UserResp;
+import ru.mycompany.phrase.domain.api.common.UserRespRowMapper;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
 
 import javax.annotation.PostConstruct;
@@ -34,6 +36,25 @@ public class SearchDaoImpl extends JdbcDaoSupport implements SearchDao {
     @PostConstruct
     private void initialize() {
         setDataSource(dataSource);
+    }
+
+
+
+    @Override
+    public List<UserResp> searchUsersByPartNickname(String partNickname) {
+
+        return jdbcTemplate.query("SELECT id, nickname " +
+                        "FROM (" +
+                        "         SELECT id, nickname " +
+                        "         FROM user " +
+                        "         WHERE nickname LIKE CONCAT(?, '%')) t1 " +
+                        "UNION " +
+                        "SELECT id, nickname " +
+                        "FROM (" +
+                        "         SELECT id, nickname " +
+                        "         FROM user " +
+                        "         WHERE nickname LIKE CONCAT('%', ?, '%')) t2;"
+                , new UserRespRowMapper(), partNickname, partNickname);
     }
 
 

@@ -12,6 +12,7 @@ import ru.mycompany.phrase.dao.CommonDao;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.common.TagRespRowMapper;
 import ru.mycompany.phrase.domain.constant.Code;
+import ru.mycompany.phrase.domain.dto.User;
 import ru.mycompany.phrase.domain.response.exception.CommonException;
 
 import javax.annotation.PostConstruct;
