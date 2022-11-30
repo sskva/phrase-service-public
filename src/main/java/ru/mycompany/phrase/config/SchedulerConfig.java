@@ -22,7 +22,7 @@ public class SchedulerConfig {
     public LockProvider lockProvider(DataSource dataSource) {
         return new JdbcTemplateLockProvider(
                 JdbcTemplateLockProvider.Configuration.builder()
-                        .withLockedByValue("second_instance")
+                        .withLockedByValue("first_instance")
                         .withJdbcTemplate(new JdbcTemplate(dataSource))
                         .usingDbTime() // Works on Postgres, MySQL, MariaDb, MS SQL, Oracle, DB2, HSQL and H2
                         .build()

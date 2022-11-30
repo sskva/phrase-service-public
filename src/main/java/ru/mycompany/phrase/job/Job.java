@@ -20,8 +20,8 @@ public class Job {
     @SchedulerLock(name = "job")
     public void job() throws InterruptedException {
 
-        log.info("second_instance: {}", ++c);
-        commonDao.testSchedulerLock("second_instance " + c);
+        log.info("first_instance: {}", ++c);
+        commonDao.testSchedulerLock("first_instance " + c);
         Thread.sleep(500);
 
     }
