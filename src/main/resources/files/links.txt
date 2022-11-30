@@ -1,7 +1,9 @@
 
+Блокировка джобов -
+https://github.com/lukas-krecan/ShedLock
+https://habr.com/ru/post/580062/
 
-
-Производительность мапперов
+Производительность мапперов -
 https://www.baeldung.com/java-performance-mapping-frameworks
 
 Микросервисы vs Монолит -
