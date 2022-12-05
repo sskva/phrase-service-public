@@ -10,7 +10,7 @@ import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByT
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsReq;
 import ru.mycompany.phrase.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import ru.mycompany.phrase.domain.response.Response;
-import ru.mycompany.phrase.service.SearchService;
+import ru.mycompany.phrase.service.search.SearchService;
 
 
 @Slf4j

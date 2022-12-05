@@ -1,14 +1,14 @@
-package ru.mycompany.phrase.service.impl;
+package ru.mycompany.phrase.service.search;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.mycompany.phrase.dao.CommonDao;
-import ru.mycompany.phrase.dao.SearchDao;
+import ru.mycompany.phrase.dao.common.CommonDao;
+import ru.mycompany.phrase.dao.search.SearchDao;
 import ru.mycompany.phrase.domain.api.common.TagResp;
-import ru.mycompany.phrase.domain.api.search.common.PhraseResp;
+import ru.mycompany.phrase.domain.api.common.PhraseResp;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord.SearchPhrasesByPartWordReq;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagResp;
@@ -17,7 +17,6 @@ import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsResp;
 import ru.mycompany.phrase.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
-import ru.mycompany.phrase.service.SearchService;
 import ru.mycompany.phrase.util.ValidationUtils;
 
 import java.util.List;

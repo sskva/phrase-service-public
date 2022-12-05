@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.service.impl;
+package ru.mycompany.phrase.service.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,9 +6,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.mycompany.phrase.config.MapperConfig;
-import ru.mycompany.phrase.dao.CommonDao;
-import ru.mycompany.phrase.dao.UserDao;
+import ru.mycompany.phrase.dao.common.CommonDao;
+import ru.mycompany.phrase.dao.user.UserDao;
 import ru.mycompany.phrase.domain.api.user.getMyPhrases.GetMyPhrasesResp;
 import ru.mycompany.phrase.domain.api.user.getMyPhrases.PhraseResp;
 import ru.mycompany.phrase.domain.api.common.TagResp;
@@ -23,7 +22,6 @@ import ru.mycompany.phrase.domain.entity.Phrase;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.domain.response.exception.CommonException;
-import ru.mycompany.phrase.service.UserService;
 import ru.mycompany.phrase.util.EncryptUtils;
 import ru.mycompany.phrase.util.ValidationUtils;
 

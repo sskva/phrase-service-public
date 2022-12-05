@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.dao.impl.communication;
+package ru.mycompany.phrase.dao.communication;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mycompany.phrase.dao.communication.SubscriptionDao;
+import ru.mycompany.phrase.domain.api.common.PhraseResp;
+import ru.mycompany.phrase.domain.api.common.PhraseRespRowMapper;
 import ru.mycompany.phrase.domain.api.common.UserResp;
 import ru.mycompany.phrase.domain.api.common.UserRespRowMapper;
 import ru.mycompany.phrase.domain.constant.Code;
@@ -35,6 +37,21 @@ public class SubscriptionDaoImpl extends JdbcDaoSupport implements SubscriptionD
     @PostConstruct
     private void initialize() {
         setDataSource(dataSource);
+    }
+
+
+
+    @Override
+    public List<PhraseResp> getMyPublishersPhrases(long userId, int from, int limit) {
+        return jdbcTemplate.query("SELECT phrase.id AS phrase_id, phrase.text, phrase.time_insert, phrase.user_id, u.nickname AS nickname " +
+                "FROM phrase " +
+                "         JOIN user u on u.id = phrase.user_id " +
+                "WHERE user_id IN (" +
+                "    SELECT pub_user_id " +
+                "    FROM subscription " +
+                "    WHERE sub_user_id = ?) " +
+                "ORDER BY phrase.time_insert DESC " +
+                "LIMIT ?,?;", new PhraseRespRowMapper(), userId, from, limit);
     }
 
 

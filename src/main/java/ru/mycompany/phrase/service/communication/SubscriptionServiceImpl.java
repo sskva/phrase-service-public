@@ -1,13 +1,16 @@
-package ru.mycompany.phrase.service.impl.communication;
+package ru.mycompany.phrase.service.communication;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import ru.mycompany.phrase.dao.CommonDao;
+import ru.mycompany.phrase.dao.common.CommonDao;
 import ru.mycompany.phrase.dao.communication.SubscriptionDao;
+import ru.mycompany.phrase.domain.api.common.PhraseResp;
+import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.communication.getMyPublishers.GetMyPublishersResp;
+import ru.mycompany.phrase.domain.api.communication.getMyPublishersPhrases.GetMyPublishersPhrasesResp;
 import ru.mycompany.phrase.domain.api.communication.getMySubscribers.GetMySubscribersResp;
 import ru.mycompany.phrase.domain.api.communication.subscription.SubscriptionReq;
 import ru.mycompany.phrase.domain.api.communication.unsubscription.UnsubscriptionReq;
@@ -15,8 +18,9 @@ import ru.mycompany.phrase.domain.constant.Code;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.domain.response.exception.CommonException;
-import ru.mycompany.phrase.service.communication.SubscriptionService;
 import ru.mycompany.phrase.util.ValidationUtils;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -32,16 +36,34 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
 
     @Override
+    public ResponseEntity<Response> getMyPublishersPhrases(String accessToken, int from, int limit) {
+
+        validationUtils.validationDecimalMin("from", from, 0);
+        validationUtils.validationDecimalMin("limit", limit, 1);
+
+        long userId = commonDao.getUserIdByToken(accessToken);
+        log.info("userId: {}", userId);
+
+        List<PhraseResp> phrases = subscriptionDao.getMyPublishersPhrases(userId, from, limit);
+        for (PhraseResp phraseResp : phrases) {
+            List<TagResp> tags = commonDao.getTagsByPhraseId(phraseResp.getPhraseId());
+            phraseResp.setTags(tags);
+        }
+
+        return new ResponseEntity<>(SuccessResponse.builder().data(
+                GetMyPublishersPhrasesResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
+    }
+
+
+
+    @Override
     public ResponseEntity<Response> getMySubscribers(String accessToken) {
 
         long userId = commonDao.getUserIdByToken(accessToken);
         log.info("userId: {}", userId);
 
-        return new ResponseEntity<>(
-                SuccessResponse.builder()
-                        .data(GetMySubscribersResp.builder()
-                                .subscribers(subscriptionDao.getMySubscribers(userId)).build())
-                        .build(), HttpStatus.OK);
+        return new ResponseEntity<>(SuccessResponse.builder().data(
+                GetMySubscribersResp.builder().subscribers(subscriptionDao.getMySubscribers(userId)).build()).build(), HttpStatus.OK);
     }
 
 
@@ -52,11 +74,8 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         long userId = commonDao.getUserIdByToken(accessToken);
         log.info("userId: {}", userId);
 
-        return new ResponseEntity<>(
-                SuccessResponse.builder()
-                        .data(GetMyPublishersResp.builder()
-                                .publishers(subscriptionDao.getMyPublishers(userId)).build())
-                        .build(), HttpStatus.OK);
+        return new ResponseEntity<>(SuccessResponse.builder().data(
+                GetMyPublishersResp.builder().publishers(subscriptionDao.getMyPublishers(userId)).build()).build(), HttpStatus.OK);
     }
 
 

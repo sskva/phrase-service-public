@@ -33,4 +33,13 @@ public class ValidationUtils {
             }
         }
     }
+
+
+
+    public void validationDecimalMin(String fieldName, int fieldValue, int constraint) {
+
+        if (fieldValue < constraint) {
+            throw CommonException.builder().code(Code.REQUEST_VALIDATION_ERROR).techMessage(fieldName + " должно быть больше или равно " + constraint).httpStatus(HttpStatus.BAD_REQUEST).build();
+        }
+    }
 }

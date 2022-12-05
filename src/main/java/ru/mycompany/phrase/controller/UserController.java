@@ -9,7 +9,7 @@ import ru.mycompany.phrase.domain.api.user.login.LoginReq;
 import ru.mycompany.phrase.domain.api.user.publicPhrase.PublicPhraseReq;
 import ru.mycompany.phrase.domain.api.user.registration.RegistrationReq;
 import ru.mycompany.phrase.domain.response.Response;
-import ru.mycompany.phrase.service.UserService;
+import ru.mycompany.phrase.service.user.UserService;
 
 
 @Slf4j

@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.search.common;
+package ru.mycompany.phrase.domain.api.common;
 
 import org.springframework.jdbc.core.RowMapper;
 

@@ -4,6 +4,7 @@ package ru.mycompany.phrase.controller.communication;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.mycompany.phrase.domain.api.communication.subscription.SubscriptionReq;
 import ru.mycompany.phrase.domain.api.communication.unsubscription.UnsubscriptionReq;
@@ -11,13 +12,30 @@ import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.service.communication.SubscriptionService;
 
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+
 @Slf4j
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("phrase-service-public/communication/subscription")
 public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
+
+
+
+    @GetMapping("/getMyPublishersPhrases/{from}/{limit}")
+    public ResponseEntity<Response> getMyPublishersPhrases(@RequestHeader String accessToken, @PathVariable int from, @PathVariable int limit) {
+
+        log.info("START endpoint getMyPublishersPhrases   accessToken: {}, from: {}, limit {}", accessToken, from, limit);
+        ResponseEntity<Response> resp = subscriptionService.getMyPublishersPhrases(accessToken, from, limit);
+        log.info("END endpoint getMyPublishersPhrases , response: {}", resp);
+        return resp;
+    }
 
 
 

@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.dao.impl;
+package ru.mycompany.phrase.dao.search;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,11 +6,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.mycompany.phrase.dao.SearchDao;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.common.TagRespRowMapper;
-import ru.mycompany.phrase.domain.api.search.common.PhraseResp;
-import ru.mycompany.phrase.domain.api.search.common.PhraseRespRowMapper;
+import ru.mycompany.phrase.domain.api.common.PhraseResp;
+import ru.mycompany.phrase.domain.api.common.PhraseRespRowMapper;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord.SearchPhrasesByPartWordReq;
 import ru.mycompany.phrase.domain.api.common.UserResp;
 import ru.mycompany.phrase.domain.api.common.UserRespRowMapper;

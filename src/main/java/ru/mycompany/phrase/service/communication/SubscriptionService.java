@@ -7,6 +7,8 @@ import ru.mycompany.phrase.domain.response.Response;
 
 public interface SubscriptionService {
 
+    ResponseEntity<Response> getMyPublishersPhrases(String accessToken, int from, int limit);
+
     ResponseEntity<Response> getMySubscribers(String accessToken);
 
     ResponseEntity<Response> getMyPublishers(String accessToken);

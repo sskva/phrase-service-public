@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.dao;
+package ru.mycompany.phrase.dao.common;
 
 import org.springframework.stereotype.Service;
 import ru.mycompany.phrase.domain.api.common.TagResp;

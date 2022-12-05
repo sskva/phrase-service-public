@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.service;
+package ru.mycompany.phrase.service.user;
 
 import org.springframework.http.ResponseEntity;
 import ru.mycompany.phrase.domain.api.user.login.LoginReq;

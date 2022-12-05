@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.dao.impl;
+package ru.mycompany.phrase.dao.user;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.mycompany.phrase.dao.UserDao;
 import ru.mycompany.phrase.domain.constant.Code;
 import ru.mycompany.phrase.domain.dto.User;
 import ru.mycompany.phrase.domain.entity.Phrase;

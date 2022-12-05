@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.dao;
+package ru.mycompany.phrase.dao.user;
 
 import org.springframework.stereotype.Service;
 import ru.mycompany.phrase.domain.dto.User;

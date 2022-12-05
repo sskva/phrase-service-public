@@ -10,3 +10,6 @@ id, text, time_insert
 
 **phrase_tag**<br/>
 id, phrase_id, tag_id, time_insert
+
+**subscription**<br/>
+id, sub_user_id, pub_user_id, time_insert

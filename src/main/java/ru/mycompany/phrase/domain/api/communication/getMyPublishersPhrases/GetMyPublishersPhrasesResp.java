@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord;
+package ru.mycompany.phrase.domain.api.communication.getMyPublishersPhrases;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SearchPhrasesByPartWordResp {
+public class GetMyPublishersPhrasesResp {
 
     private List<PhraseResp> phrases;
 }

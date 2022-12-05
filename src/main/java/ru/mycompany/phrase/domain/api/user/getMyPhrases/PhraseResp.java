@@ -19,10 +19,3 @@ public class PhraseResp {
     private String timeInsert;
     private List<TagResp> tags;
 }
-
-/*
-    private long id;
-    private long userId;
-    private String text;
-    private String timeInsert;
- */
