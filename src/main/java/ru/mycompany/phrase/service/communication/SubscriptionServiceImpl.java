@@ -7,10 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.mycompany.phrase.dao.common.CommonDao;
 import ru.mycompany.phrase.dao.communication.SubscriptionDao;
+import ru.mycompany.phrase.domain.api.common.CommonPhrasesResp;
 import ru.mycompany.phrase.domain.api.common.PhraseResp;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.communication.getMyPublishers.GetMyPublishersResp;
-import ru.mycompany.phrase.domain.api.communication.getMyPublishersPhrases.GetMyPublishersPhrasesResp;
 import ru.mycompany.phrase.domain.api.communication.getMySubscribers.GetMySubscribersResp;
 import ru.mycompany.phrase.domain.api.communication.subscription.SubscriptionReq;
 import ru.mycompany.phrase.domain.api.communication.unsubscription.UnsubscriptionReq;
@@ -18,6 +18,7 @@ import ru.mycompany.phrase.domain.constant.Code;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.domain.response.exception.CommonException;
+import ru.mycompany.phrase.service.common.CommonService;
 import ru.mycompany.phrase.util.ValidationUtils;
 
 import java.util.List;
@@ -32,6 +33,7 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private final ValidationUtils validationUtils;
     private final SubscriptionDao subscriptionDao;
     private final CommonDao commonDao;
+    private final CommonService commonService;
 
 
 
@@ -45,13 +47,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         log.info("userId: {}", userId);
 
         List<PhraseResp> phrases = subscriptionDao.getMyPublishersPhrases(userId, from, limit);
-        for (PhraseResp phraseResp : phrases) {
-            List<TagResp> tags = commonDao.getTagsByPhraseId(phraseResp.getPhraseId());
-            phraseResp.setTags(tags);
-        }
+        commonService.phraseEnrichment(phrases);
 
-        return new ResponseEntity<>(SuccessResponse.builder().data(
-                GetMyPublishersPhrasesResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
+        return new ResponseEntity<>(SuccessResponse.builder().data(CommonPhrasesResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
     }
 
 

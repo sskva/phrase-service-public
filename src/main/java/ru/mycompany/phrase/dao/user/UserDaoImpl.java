@@ -8,10 +8,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mycompany.phrase.domain.api.common.PhraseResp;
+import ru.mycompany.phrase.domain.api.common.PhraseRespRowMapper;
 import ru.mycompany.phrase.domain.constant.Code;
 import ru.mycompany.phrase.domain.dto.User;
-import ru.mycompany.phrase.domain.entity.Phrase;
-import ru.mycompany.phrase.domain.entity.PhraseRowMapper;
 import ru.mycompany.phrase.domain.response.exception.CommonException;
 
 import javax.annotation.PostConstruct;
@@ -39,8 +39,12 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 
 
     @Override
-    public List<Phrase> getPhrasesByUserId(long userId) {
-        return jdbcTemplate.query("SELECT * FROM phrase WHERE user_id = ? ORDER BY time_insert DESC;", new PhraseRowMapper(), userId);
+    public List<PhraseResp> getPhrasesByUserId(long userId) {
+        return jdbcTemplate.query("SELECT phrase.id AS phrase_id, u.id AS user_id, u.nickname, phrase.text, phrase.time_insert " +
+                "FROM phrase " +
+                "         JOIN user u on phrase.user_id = u.id " +
+                "WHERE user_id = ? " +
+                "ORDER BY time_insert DESC;", new PhraseRespRowMapper(), userId);
     }
 
 

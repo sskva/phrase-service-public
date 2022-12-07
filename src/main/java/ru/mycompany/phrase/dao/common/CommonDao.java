@@ -8,6 +8,8 @@ import java.util.List;
 @Service
 public interface CommonDao {
 
+    long getCountLikes(long phraseId);
+
     List<TagResp> getTagsByPhraseId(long phraseId);
 
     long getUserIdByToken(String accessToken);

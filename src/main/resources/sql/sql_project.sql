@@ -1,3 +1,16 @@
+CREATE TABLE phrase_public.like_phrase
+(
+    id          BIGINT AUTO_INCREMENT,
+    phrase_id   BIGINT    NOT NULL,
+    user_id     BIGINT    NOT NULL,
+    time_insert TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (phrase_id) REFERENCES phrase (id),
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    UNIQUE `phrase_id_user_id` (`phrase_id`, `user_id`)
+) COLLATE utf8_bin;
+
+
 CREATE TABLE test_scheduler_lock
 (
     instance_name VARCHAR(64) NOT NULL,

@@ -7,16 +7,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.mycompany.phrase.dao.common.CommonDao;
 import ru.mycompany.phrase.dao.search.SearchDao;
+import ru.mycompany.phrase.domain.api.common.CommonPhrasesResp;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.common.PhraseResp;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByPartWord.SearchPhrasesByPartWordReq;
 import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagReq;
-import ru.mycompany.phrase.domain.api.search.searchPhrasesByTag.SearchPhrasesByTagResp;
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsReq;
 import ru.mycompany.phrase.domain.api.search.searchTags.SearchTagsResp;
 import ru.mycompany.phrase.domain.api.search.searchUsersByPartNickname.SearchUsersByPartNicknameReq;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
+import ru.mycompany.phrase.service.common.CommonService;
 import ru.mycompany.phrase.util.ValidationUtils;
 
 import java.util.List;
@@ -29,6 +30,7 @@ public class SearchServiceImpl implements SearchService {
     private final SearchDao searchDao;
     private final ValidationUtils validationUtils;
     private final CommonDao commonDao;
+    private final CommonService commonService;
 
 
 
@@ -50,11 +52,9 @@ public class SearchServiceImpl implements SearchService {
         commonDao.getUserIdByToken(accessToken);
 
         List<PhraseResp> phrases = searchDao.searchPhrasesByPartWord(req);
-        for (PhraseResp phraseResp : phrases) {
-            List<TagResp> tags = commonDao.getTagsByPhraseId(phraseResp.getPhraseId());
-            phraseResp.setTags(tags);
-        }
-        return new ResponseEntity<>(SuccessResponse.builder().data(SearchPhrasesByTagResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
+        commonService.phraseEnrichment(phrases);
+
+        return new ResponseEntity<>(SuccessResponse.builder().data(CommonPhrasesResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
     }
 
 
@@ -66,11 +66,9 @@ public class SearchServiceImpl implements SearchService {
         commonDao.getUserIdByToken(accessToken);
 
         List<PhraseResp> phrases = searchDao.searchPhrasesByTag(req);
-        for (PhraseResp phraseResp : phrases) {
-            List<TagResp> tags = commonDao.getTagsByPhraseId(phraseResp.getPhraseId());
-            phraseResp.setTags(tags);
-        }
-        return new ResponseEntity<>(SuccessResponse.builder().data(SearchPhrasesByTagResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
+        commonService.phraseEnrichment(phrases);
+
+        return new ResponseEntity<>(SuccessResponse.builder().data(CommonPhrasesResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
     }
 
 

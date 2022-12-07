@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.mycompany.phrase.domain.api.common.TagResp;
 
 import java.util.List;
 
@@ -20,4 +19,5 @@ public class PhraseResp {
     private String text;
     private String timeInsert;
     private List<TagResp> tags;
+    private long countLikes;
 }

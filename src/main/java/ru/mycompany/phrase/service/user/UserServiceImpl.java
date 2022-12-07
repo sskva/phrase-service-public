@@ -2,15 +2,13 @@ package ru.mycompany.phrase.service.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.mycompany.phrase.dao.common.CommonDao;
 import ru.mycompany.phrase.dao.user.UserDao;
-import ru.mycompany.phrase.domain.api.user.getMyPhrases.GetMyPhrasesResp;
-import ru.mycompany.phrase.domain.api.user.getMyPhrases.PhraseResp;
-import ru.mycompany.phrase.domain.api.common.TagResp;
+import ru.mycompany.phrase.domain.api.common.CommonPhrasesResp;
+import ru.mycompany.phrase.domain.api.common.PhraseResp;
 import ru.mycompany.phrase.domain.api.user.login.LoginReq;
 import ru.mycompany.phrase.domain.api.user.login.LoginResp;
 import ru.mycompany.phrase.domain.api.user.publicPhrase.PublicPhraseReq;
@@ -18,14 +16,13 @@ import ru.mycompany.phrase.domain.api.user.registration.RegistrationReq;
 import ru.mycompany.phrase.domain.api.user.registration.RegistrationResp;
 import ru.mycompany.phrase.domain.constant.Code;
 import ru.mycompany.phrase.domain.dto.User;
-import ru.mycompany.phrase.domain.entity.Phrase;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.domain.response.exception.CommonException;
+import ru.mycompany.phrase.service.common.CommonService;
 import ru.mycompany.phrase.util.EncryptUtils;
 import ru.mycompany.phrase.util.ValidationUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -38,26 +35,19 @@ public class UserServiceImpl implements UserService {
     private final EncryptUtils encryptUtils;
     private final UserDao userDao;
     private final CommonDao commonDao;
-//    private final MapperConfig mapper;
+    private final CommonService commonService;
 
 
 
     @Override
     public ResponseEntity<Response> getMyPhrases(String accessToken) {
 
-
-
         long userId = commonDao.getUserIdByToken(accessToken);
-        List<Phrase> phraseList = userDao.getPhrasesByUserId(userId);
 
-        List<PhraseResp> phraseRespList = new ArrayList<>();
-        for (Phrase phrase : phraseList) {
-            List<TagResp> tags = commonDao.getTagsByPhraseId(phrase.getId());
-            PhraseResp phraseResp = new ModelMapper().map(phrase, PhraseResp.class);
-            phraseResp.setTags(tags);
-            phraseRespList.add(phraseResp);
-        }
-        return new ResponseEntity<>(SuccessResponse.builder().data(GetMyPhrasesResp.builder().phrases(phraseRespList).build()).build(), HttpStatus.OK);
+        List<PhraseResp> phrases = userDao.getPhrasesByUserId(userId);
+        commonService.phraseEnrichment(phrases);
+
+        return new ResponseEntity<>(SuccessResponse.builder().data(CommonPhrasesResp.builder().phrases(phrases).build()).build(), HttpStatus.OK);
     }
 
 
