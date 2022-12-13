@@ -9,6 +9,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import ru.mycompany.phrase.domain.api.common.CommentResp;
+import ru.mycompany.phrase.domain.api.common.CommentRespRowMapper;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 import ru.mycompany.phrase.domain.api.common.TagRespRowMapper;
 import ru.mycompany.phrase.domain.constant.Code;
@@ -39,7 +41,24 @@ public class CommonDaoImpl extends JdbcDaoSupport implements CommonDao {
 
 
     @Override
-    public long getCountLikes(long phraseId) {
+    public List<CommentResp> getCommentsByPhraseId(long phraseId) {
+
+        try {
+            return jdbcTemplate.query("SELECT comment.id AS comment_id, user_id, nickname, text, comment.time_insert " +
+                    "FROM comment " +
+                    "         JOIN user u on u.id = comment.user_id " +
+                    "WHERE phrase_id = ? " +
+                    "ORDER BY comment.time_insert DESC;", new CommentRespRowMapper(), phraseId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+
+    @Override
+    public long getCountLikesByPhraseId(long phraseId) {
         try {
             return jdbcTemplate.queryForObject("SELECT COUNT(*) FROM like_phrase WHERE phrase_id = ?;", Long.class, phraseId);
         } catch (Exception e) {

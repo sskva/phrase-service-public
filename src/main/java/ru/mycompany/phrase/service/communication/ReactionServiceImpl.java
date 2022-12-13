@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.mycompany.phrase.dao.common.CommonDao;
 import ru.mycompany.phrase.dao.communication.ReactionDao;
+import ru.mycompany.phrase.domain.api.communication.comment.CommentPhraseReq;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.domain.response.SuccessResponse;
 import ru.mycompany.phrase.util.ValidationUtils;
@@ -19,6 +20,17 @@ public class ReactionServiceImpl implements ReactionService {
     private final ValidationUtils validationUtils;
     private final CommonDao commonDao;
     private final ReactionDao reactionDao;
+
+
+
+    @Override
+    public ResponseEntity<Response> commentPhrase(String accessToken, CommentPhraseReq req) {
+
+        validationUtils.validationRequest(req);
+        long userId = commonDao.getUserIdByToken(accessToken);
+        reactionDao.commentPhrase(userId, req);
+        return new ResponseEntity<>(SuccessResponse.builder().build(), HttpStatus.OK);
+    }
 
 
 

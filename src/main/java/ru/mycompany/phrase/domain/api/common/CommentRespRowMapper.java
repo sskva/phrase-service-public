@@ -5,13 +5,13 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class PhraseRespRowMapper implements RowMapper<PhraseResp> {
+public class CommentRespRowMapper implements RowMapper<CommentResp> {
 
     @Override
-    public PhraseResp mapRow(ResultSet row, int rowNum) throws SQLException {
+    public CommentResp mapRow(ResultSet row, int rowNum) throws SQLException {
 
-        return PhraseResp.builder()
-                .phraseId(row.getLong("phrase_id"))
+        return CommentResp.builder()
+                .commentId(row.getLong("comment_id"))
                 .userId(row.getLong("user_id"))
                 .nickname(row.getString("nickname"))
                 .text(row.getString("text"))

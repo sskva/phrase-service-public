@@ -11,14 +11,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PhraseResp {
+public class CommentResp {
 
-    private long countLikes;
-    private long phraseId;
     private long userId;
     private String nickname;
+    private long commentId;
     private String text;
     private String timeInsert;
-    private List<TagResp> tags;
-    private List<CommentResp> comments;
 }

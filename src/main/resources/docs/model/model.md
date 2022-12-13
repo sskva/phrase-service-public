@@ -13,3 +13,9 @@ id, phrase_id, tag_id, time_insert
 
 **subscription**<br/>
 id, sub_user_id, pub_user_id, time_insert
+
+**like_phrase**<br/>
+id, phrase_id, user_id, time_insert
+
+**comment**<br/>
+id, user_id, phrase_id, text, time_insert

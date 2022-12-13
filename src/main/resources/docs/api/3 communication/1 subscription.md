@@ -120,6 +120,15 @@ from >= 0, limit > 0
             "tagId": 21,
             "text": "бал"
           }
+        ],
+        "comments": [
+          {
+            "userId": 9,
+            "nickname": "арбузо",
+            "commentId": 6,
+            "text": "вот это великая фраза!",
+            "timeInsert": "2022-12-13 14:52:22"
+          }
         ]
       },
       {

@@ -1,6 +1,7 @@
 package ru.mycompany.phrase.dao.common;
 
 import org.springframework.stereotype.Service;
+import ru.mycompany.phrase.domain.api.common.CommentResp;
 import ru.mycompany.phrase.domain.api.common.TagResp;
 
 import java.util.List;
@@ -8,7 +9,9 @@ import java.util.List;
 @Service
 public interface CommonDao {
 
-    long getCountLikes(long phraseId);
+    List<CommentResp> getCommentsByPhraseId(long phraseId);
+
+    long getCountLikesByPhraseId(long phraseId);
 
     List<TagResp> getTagsByPhraseId(long phraseId);
 

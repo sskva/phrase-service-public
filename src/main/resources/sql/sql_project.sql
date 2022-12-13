@@ -1,3 +1,17 @@
+CREATE TABLE phrase_public.comment
+(
+    id          BIGINT AUTO_INCREMENT,
+    user_id     BIGINT       NOT NULL,
+    phrase_id   BIGINT       NOT NULL,
+    text        VARCHAR(140) NOT NULL,
+    time_insert TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    FOREIGN KEY (phrase_id) REFERENCES phrase (id),
+    FOREIGN KEY (user_id) REFERENCES user (id)
+) COLLATE utf8_bin;
+
+
+
 CREATE TABLE phrase_public.like_phrase
 (
     id          BIGINT AUTO_INCREMENT,
