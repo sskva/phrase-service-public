@@ -6,15 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.mycompany.phrase.domain.api.communication.subscription.SubscriptionReq;
-import ru.mycompany.phrase.domain.api.communication.unsubscription.UnsubscriptionReq;
+import ru.mycompany.phrase.domain.api.communication.subscribe.subscription.SubscriptionReq;
+import ru.mycompany.phrase.domain.api.communication.subscribe.unsubscription.UnsubscriptionReq;
 import ru.mycompany.phrase.domain.response.Response;
 import ru.mycompany.phrase.service.communication.SubscriptionService;
-
-
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 
 @Slf4j

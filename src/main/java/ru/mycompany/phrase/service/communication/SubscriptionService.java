@@ -1,8 +1,8 @@
 package ru.mycompany.phrase.service.communication;
 
 import org.springframework.http.ResponseEntity;
-import ru.mycompany.phrase.domain.api.communication.subscription.SubscriptionReq;
-import ru.mycompany.phrase.domain.api.communication.unsubscription.UnsubscriptionReq;
+import ru.mycompany.phrase.domain.api.communication.subscribe.subscription.SubscriptionReq;
+import ru.mycompany.phrase.domain.api.communication.subscribe.unsubscription.UnsubscriptionReq;
 import ru.mycompany.phrase.domain.response.Response;
 
 public interface SubscriptionService {

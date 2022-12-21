@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.communication.subscription;
+package ru.mycompany.phrase.domain.api.communication.subscribe.unsubscription;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import javax.validation.constraints.DecimalMin;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubscriptionReq {
+public class UnsubscriptionReq {
 
     @DecimalMin(value = "1", message = "Значение pubUserId должно быть больше 0")
     private long pubUserId;
