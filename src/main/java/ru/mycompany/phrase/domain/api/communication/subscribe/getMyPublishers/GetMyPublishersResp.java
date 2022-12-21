@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.communication.getMyPublishers;
+package ru.mycompany.phrase.domain.api.communication.subscribe.getMyPublishers;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

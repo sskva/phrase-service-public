@@ -1,4 +1,4 @@
-package ru.mycompany.phrase.domain.api.communication.comment;
+package ru.mycompany.phrase.domain.api.communication.reaction.commentPhrase;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

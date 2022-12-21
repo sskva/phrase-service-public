@@ -97,6 +97,4 @@ public class UserServiceImpl implements UserService {
 
         return new ResponseEntity<>(SuccessResponse.builder().data(RegistrationResp.builder().accessToken(accessToken).build()).build(), HttpStatus.OK);
     }
-
-
 }
