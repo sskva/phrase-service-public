@@ -6,6 +6,12 @@ import ru.mycompany.phrase.domain.response.Response;
 
 public interface ReactionService {
 
+    ResponseEntity<Response> unblockUser(String accessToken, long blockUserId);
+
+    ResponseEntity<Response> getBlockUsers(String accessToken);
+
+    ResponseEntity<Response> blockUser(String accessToken, long blockingUserId);
+
     ResponseEntity<Response> deleteCommentPhrase(String accessToken, long commentId);
 
     ResponseEntity<Response> commentPhrase(String accessToken, CommentPhraseReq req);

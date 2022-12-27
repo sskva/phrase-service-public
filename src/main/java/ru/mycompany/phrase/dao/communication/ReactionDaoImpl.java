@@ -10,6 +10,8 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.mycompany.phrase.domain.api.common.PhraseRespRowMapper;
+import ru.mycompany.phrase.domain.api.common.UserResp;
+import ru.mycompany.phrase.domain.api.common.UserRespRowMapper;
 import ru.mycompany.phrase.domain.api.communication.reaction.commentPhrase.CommentPhraseReq;
 import ru.mycompany.phrase.domain.dto.WhoseComment;
 import ru.mycompany.phrase.domain.dto.WhoseCommentRowMapper;
@@ -17,6 +19,8 @@ import ru.mycompany.phrase.domain.response.exception.CommonException;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static ru.mycompany.phrase.domain.constant.Code.COMMENT_NOT_FOUND;
@@ -37,6 +41,30 @@ public class ReactionDaoImpl extends JdbcDaoSupport implements ReactionDao {
     @PostConstruct
     private void initialize() {
         setDataSource(dataSource);
+    }
+
+
+
+    @Override
+    public void unblockUser(long userId, long blockUserId) {
+
+        jdbcTemplate.update("DELETE FROM block WHERE user_id = ? AND block_user_id = ?;", userId, blockUserId);
+    }
+
+
+
+    @Override
+    public List<UserResp> getBlockUsers(long userId) {
+
+        return jdbcTemplate.query("SELECT id, nickname FROM user WHERE id IN (SELECT block_user_id FROM block WHERE user_id = ?);", new UserRespRowMapper(), userId);
+
+    }
+
+
+
+    @Override
+    public void blockUser(long userId, long blockUserId) {
+        jdbcTemplate.update("INSERT IGNORE INTO block(user_id, block_user_id) VALUES (?,?);", userId, blockUserId);
     }
 
 

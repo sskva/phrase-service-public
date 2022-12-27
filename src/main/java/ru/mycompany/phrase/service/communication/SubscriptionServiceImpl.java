@@ -99,10 +99,12 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         long subUserId = commonDao.getUserIdByToken(accessToken);
 
         long pubUserId = req.getPubUserId();
-        log.info("subUserId: {}, subscriptionUserId: {},", subUserId, pubUserId);
+        log.info("subUserId: {}, pubUserId: {},", subUserId, pubUserId);
 
         if (subUserId == pubUserId)
             throw CommonException.builder().code(Code.SUBSCRIPTION_LOGIC_ERROR).userMessage("Вы не можете подписаться на себя").httpStatus(BAD_REQUEST).build();
+
+        commonService.checkBlockByUserId(subUserId, pubUserId);
 
         subscriptionDao.subscription(subUserId, pubUserId);
         return new ResponseEntity<>(SuccessResponse.builder().build(), HttpStatus.OK);
