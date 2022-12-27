@@ -43,6 +43,7 @@ public class SubscriptionDaoImpl extends JdbcDaoSupport implements SubscriptionD
 
     @Override
     public List<PhraseResp> getMyPublishersPhrases(long userId, int from, int limit) {
+
         return jdbcTemplate.query("SELECT phrase.id AS phrase_id, phrase.text, phrase.time_insert, phrase.user_id, u.nickname AS nickname " +
                 "FROM phrase " +
                 "         JOIN user u on u.id = phrase.user_id " +
